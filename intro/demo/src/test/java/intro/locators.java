@@ -11,7 +11,7 @@ public class locators {
   public static void main(String[] args) {
     System.setProperty(
       "webdriver.chrome.driver",
-      "C://Users/dst/Documents/chromedriver_win32/chromedriver.exe"
+      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe"
     );
 
     WebDriver driver = new ChromeDriver(); //uvek pisem WebDriver
@@ -38,5 +38,12 @@ public class locators {
     driver
       .findElement(By.cssSelector("input[type='text']:nth-child(4)")) //CSS selektor preko indeksiranja
       .sendKeys("12354658");
+
+    driver.findElement(By.xpath("//form/input[3]")).sendKeys("5548682"); // XPATH preko Parent/Child opcije - kada nemamo atribute
+    driver.findElement(By.cssSelector(".reset-pwd-btn")).click();
+
+    System.out.println(
+      driver.findElement(By.cssSelector("form p")).getText() // CSS selektor preko Parent/Child opcije
+    );
   }
 }
