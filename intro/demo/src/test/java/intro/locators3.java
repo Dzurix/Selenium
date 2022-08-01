@@ -21,11 +21,13 @@ public class locators3 {
         .findElement(
           By.xpath("//header/div/button[1]/following-sibling::button[1]")
         )
-        .getText()
+        .getText() //ovako se krecem na istom nivou izmedju ‘siblinga’ pomocu XPATH
     );
 
-    driver
-      .findElement(By.xpath("//header/div/button[1]/parent::div/button[2]"))
-      .getText();
+    System.out.println(
+      driver
+        .findElement(By.xpath("//header/div/button[1]/parent::div/button[2]"))
+        .getText() // ovako se krecem od child ka parrentu   pomocu XPATH (ovo preko CSS nije moguce)
+    );
   }
 }
