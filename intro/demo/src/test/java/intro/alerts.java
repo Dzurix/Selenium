@@ -174,7 +174,7 @@ public class alerts {
     driver.get("https://the-internet.herokuapp.com/");
 
     driver.findElement(By.linkText("Nested Frames")).click();
-
+    driver.switchTo().frame("frame-top");
     driver
       .switchTo()
       .frame(driver.findElement(By.cssSelector("frame[name='frame-middle']")));
