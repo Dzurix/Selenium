@@ -11,14 +11,14 @@ import org.openqa.selenium.interactions.Actions;
 
 public class actionsDemo {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     System.setProperty(
       "webdriver.chrome.driver",
-      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      // "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
     WebDriver driver = new ChromeDriver();
-    driver.manage().window().maximize(); //maximiziranje prozora
+    // driver.manage().window().maximize(); //maximiziranje prozora
     // driver.get("https://www.amazon.com/");
     // Actions a = new Actions(driver); // definisanje klase ACTIONS
 
@@ -77,18 +77,59 @@ public class actionsDemo {
 
     //FRAMES vezba
 
-    driver.get("https://jqueryui.com/droppable/");
-    driver
-      .switchTo()
-      .frame(driver.findElement(By.cssSelector("iframe[class='demo-frame']")));
-    System.out.println(driver.findElements(By.tagName("iframe")).size()); //da vidim koliko ima frejmova
+    // driver.get("https://jqueryui.com/droppable/");
+    // driver
+    //   .switchTo()
+    //   .frame(driver.findElement(By.cssSelector("iframe[class='demo-frame']")));
+    // System.out.println(driver.findElements(By.tagName("iframe")).size()); //da vidim koliko ima frejmova
 
-    Actions a = new Actions(driver);
-    WebElement source = driver.findElement(By.id("draggable"));
-    WebElement target = driver.findElement(By.id("droppable"));
+    // Actions a = new Actions(driver);
+    // WebElement source = driver.findElement(By.id("draggable"));
+    // WebElement target = driver.findElement(By.id("droppable"));
 
-    a.dragAndDrop(source, target).build().perform();
+    // a.dragAndDrop(source, target).build().perform();
 
-    driver.switchTo().defaultContent(); //ovako izlazim iz frejma
+    // driver.switchTo().defaultContent(); //ovako izlazim iz frejma
+
+    // HOW TO PRINT THE LINKS COUNT IN THE PAGE
+
+    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+
+    System.out.println(driver.findElements(By.tagName("a")).size()); //kako da pronadjem linkove preko 'a' href
+
+    // broj linkova u footeru - treba da smanjimo WebDriver SCOPE, da bi samo footer pregledao
+
+    WebElement footerDriver = driver.findElement(By.id("gf-BIG")); //smanjivanje SCOPA preko WebElementa
+
+    System.out.println(footerDriver.findElements(By.tagName("a")).size());
+
+    WebElement columnDriver = footerDriver.findElement(
+      By.xpath("//table/tbody/tr/td[1]/ul")
+    ); // da pronadjem jos manji SCOPE
+
+    System.out.println(columnDriver.findElements(By.tagName("a")).size());
+    // how to click on each link in the column adn check if the pages are opening
+
+    for (
+      int i = 1;
+      i < columnDriver.findElements(By.tagName("a")).size();
+      i++
+    ) {
+      String clickOnLinkTab = Keys.chord(Keys.CONTROL, Keys.ENTER); // klik na tockic na misu (kao da je klikno)
+
+      columnDriver
+        .findElements(By.tagName("a"))
+        .get(i)
+        .sendKeys(clickOnLinkTab);
+    } // sa ovim FOR loopom otvaramo sve tabove (klikcemo na linkove)
+    Thread.sleep(5000);
+
+    Set<String> abc = driver.getWindowHandles();
+    Iterator<String> it = abc.iterator(); // iterator sluzi da menjamo tabove u browseru
+
+    while (it.hasNext()) { // dok god ima sledeci, predji na taj sledeci
+      driver.switchTo().window(it.next());
+      System.out.println(driver.getTitle());
+    }
   }
 }

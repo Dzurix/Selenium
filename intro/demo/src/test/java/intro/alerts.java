@@ -20,8 +20,8 @@ public class alerts {
   public static void main(String[] args) throws InterruptedException {
     System.setProperty(
       "webdriver.chrome.driver",
-      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      // "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+      // "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
     WebDriver driver = new ChromeDriver(); //uvek pisem WebDriver
     // String ime = "Upoje";
@@ -171,14 +171,32 @@ public class alerts {
 
     //ASSIGNMENT 5
 
-    driver.get("https://the-internet.herokuapp.com/");
+    // driver.get("https://the-internet.herokuapp.com/");
 
-    driver.findElement(By.linkText("Nested Frames")).click();
-    driver.switchTo().frame("frame-top");
-    driver
-      .switchTo()
-      .frame(driver.findElement(By.cssSelector("frame[name='frame-middle']")));
+    // driver.findElement(By.linkText("Nested Frames")).click();
+    // driver.switchTo().frame("frame-top");
+    // driver
+    //   .switchTo()
+    //   .frame(driver.findElement(By.cssSelector("frame[name='frame-middle']")));
 
-    System.out.println(driver.findElement(By.id("content")).getText());
+    // System.out.println(driver.findElement(By.id("content")).getText());
+
+    //ASSIGNMENT 6
+
+    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+
+    WebElement nameCheckBox = driver.findElement(By.id("checkBoxOption3"));
+    nameCheckBox.click();
+
+    String imeCheck = nameCheckBox.getText();
+
+    System.out.println(imeCheck);
+    // WebElement staticDropdown = driver.findElement(
+    //   By.id("dropdown-class-example")
+    // );
+
+    // Select dropdown = new Select(staticDropdown);
+
+    // dropdown.selectByValue(imeCheck);
   }
 }
