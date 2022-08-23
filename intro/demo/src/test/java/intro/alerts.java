@@ -185,18 +185,34 @@ public class alerts {
 
     driver.get("https://rahulshettyacademy.com/AutomationPractice/");
 
-    WebElement nameCheckBox = driver.findElement(By.id("checkBoxOption3"));
-    nameCheckBox.click();
+    driver.findElement(By.id("checkBoxOption3")).click();
 
-    String imeCheck = nameCheckBox.getText();
+    // String imeCheck = driver
+    //   .findElement(By.xpath("//*[@id='checkbox-example']/fieldset/label[2]"))
+    //   .getText();
+
+    String imeCheck = driver
+      .findElement(By.xpath("//body/div[1]/div[4]/fieldset[1]/label[3]"))
+      .getText();
 
     System.out.println(imeCheck);
-    // WebElement staticDropdown = driver.findElement(
-    //   By.id("dropdown-class-example")
-    // );
 
-    // Select dropdown = new Select(staticDropdown);
+    WebElement staticDropdown = driver.findElement(
+      By.id("dropdown-class-example")
+    );
 
-    // dropdown.selectByValue(imeCheck);
+    Select dropdown = new Select(staticDropdown);
+
+    dropdown.selectByVisibleText(imeCheck);
+
+    driver.findElement(By.id("name")).sendKeys(imeCheck);
+
+    driver.findElement(By.id("alertbtn")).click();
+
+    String text = driver.switchTo().alert().getText();
+
+    if (text.contains(imeCheck)) {
+      System.out.println("Alert message success");
+    } else System.out.println("Something wrong with execution");
   }
 }
