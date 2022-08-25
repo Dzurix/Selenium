@@ -183,36 +183,62 @@ public class alerts {
 
     //ASSIGNMENT 6
 
-    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+    // driver.get("https://rahulshettyacademy.com/AutomationPractice/");
 
-    driver.findElement(By.id("checkBoxOption3")).click();
+    // driver.findElement(By.id("checkBoxOption3")).click();
+
+    // // String imeCheck = driver
+    // //   .findElement(By.xpath("//*[@id='checkbox-example']/fieldset/label[2]"))
+    // //   .getText();
 
     // String imeCheck = driver
-    //   .findElement(By.xpath("//*[@id='checkbox-example']/fieldset/label[2]"))
+    //   .findElement(By.xpath("//body/div[1]/div[4]/fieldset[1]/label[3]"))
     //   .getText();
 
-    String imeCheck = driver
-      .findElement(By.xpath("//body/div[1]/div[4]/fieldset[1]/label[3]"))
-      .getText();
+    // System.out.println(imeCheck);
 
-    System.out.println(imeCheck);
+    // WebElement staticDropdown = driver.findElement(
+    //   By.id("dropdown-class-example")
+    // );
 
-    WebElement staticDropdown = driver.findElement(
-      By.id("dropdown-class-example")
-    );
+    // Select dropdown = new Select(staticDropdown);
 
-    Select dropdown = new Select(staticDropdown);
+    // dropdown.selectByVisibleText(imeCheck);
 
-    dropdown.selectByVisibleText(imeCheck);
+    // driver.findElement(By.id("name")).sendKeys(imeCheck);
 
-    driver.findElement(By.id("name")).sendKeys(imeCheck);
+    // driver.findElement(By.id("alertbtn")).click();
 
-    driver.findElement(By.id("alertbtn")).click();
+    // String text = driver.switchTo().alert().getText();
 
-    String text = driver.switchTo().alert().getText();
+    // if (text.contains(imeCheck)) {
+    //   System.out.println("Alert message success");
+    // } else System.out.println("Something wrong with execution");
 
-    if (text.contains(imeCheck)) {
-      System.out.println("Alert message success");
-    } else System.out.println("Something wrong with execution");
+    //ASSIGNMENT 7
+
+    // driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+
+    // WebElement tabela = driver.findElement(By.id("product"));
+
+    // List<WebElement> redovi = tabela.findElements(By.tagName("tr"));
+    // System.out.println(redovi.size());
+
+    // List<WebElement> prviRed = redovi.get(0).findElements(By.tagName("th"));
+
+    // System.out.println(prviRed.size());
+    // List<WebElement> treciRed = redovi.get(2).findElements(By.tagName("td"));
+
+    // for (int i = 0; i < treciRed.size(); i++) {
+    //   System.out.println(treciRed.get(i).getText());
+    // }
+
+    //ASSIGNMENT 8
+
+    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+
+    WebElement dropdown = driver.findElement(By.id("autocomplete"));
+
+    dropdown.sendKeys("united");
   }
 }
