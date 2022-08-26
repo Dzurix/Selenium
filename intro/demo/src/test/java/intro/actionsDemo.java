@@ -1,14 +1,20 @@
 package intro;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
@@ -171,40 +177,69 @@ public class actionsDemo {
     //   }
     // }
 
-    //SCROLLING
-    //Uvek je dobro da se pozicioniramo na deo web stranice na kojoj vrsimo testove
-    // na primer da u HEADLESS modu mozemo pokrenuti testove (posto pravi probleme ako nije pozicioniran na taj deo stranice)
+    // //SCROLLING
+    // //Uvek je dobro da se pozicioniramo na deo web stranice na kojoj vrsimo testove
+    // // na primer da u HEADLESS modu mozemo pokrenuti testove (posto pravi probleme ako nije pozicioniran na taj deo stranice)
 
-    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+    // driver.get("https://rahulshettyacademy.com/AutomationPractice/");
 
-    JavascriptExecutor js = (JavascriptExecutor) driver; // pozivam ovu klasu kako bi mogao da radim sa JS
+    // JavascriptExecutor js = (JavascriptExecutor) driver; // pozivam ovu klasu kako bi mogao da radim sa JS
 
-    js.executeScript("window.scrollBy(0,500)");
-    Thread.sleep(3000);
+    // js.executeScript("window.scrollBy(0,500)");
+    // Thread.sleep(3000);
 
-    js.executeScript("document.querySelector('.tableFixHead').scrollTop=5000"); //hvatam manju tabelu i skrolujem isto kao preko Cypress
+    // js.executeScript("document.querySelector('.tableFixHead').scrollTop=5000"); //hvatam manju tabelu i skrolujem isto kao preko Cypress
 
-    // Rad sa tabelama
-    List<WebElement> values = driver.findElements(
-      By.cssSelector(".tableFixHead td:nth-child(4)")
+    // // Rad sa tabelama
+    // List<WebElement> values = driver.findElements(
+    //   By.cssSelector(".tableFixHead td:nth-child(4)")
+    // );
+    // int sum = 0;
+    // for (int i = 0; i < values.size(); i++) {
+    //   Integer.parseInt(values.get(i).getText()); //ovako text prebacujem u ceo broj
+
+    //   sum = sum + Integer.parseInt(values.get(i).getText());
+    // }
+    // System.out.println(sum);
+
+    // // poredjenje dve vrednosti
+
+    // int total = Integer.parseInt(
+    //   driver
+    //     .findElement(By.cssSelector(".totalAmount"))
+    //     .getText()
+    //     .split(":")[1].trim()
+    // );
+
+    // Assert.assertEquals(sum, total); //asertacija za poredjenje vrednosti
+
+    // HANDLING HTTPS certifications
+    ChromeOptions options = new ChromeOptions();
+
+    // ubacivanje Proxy- ja
+    Proxy proxy = new Proxy();
+
+    proxy.setHttpProxy("ipaddress:4444");
+
+    options.setCapability("proxy", proxy);
+
+    // set downloading directory
+    Map<String, Object> prefs = new HashMap<String, Object>();
+
+    prefs.put("download.default_directory", "/directory/path");
+
+    options.setExperimentalOption("prefs", prefs);
+    // FirefoxOptions options2 = new FirefoxOptions();
+    // EdgeOptions options3 = new EdgeOptions();
+
+    options.setAcceptInsecureCerts(true); // prihvati nesigurne sajtove
+    System.setProperty(
+      "webdriver.chrome.driver",
+      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
-    int sum = 0;
-    for (int i = 0; i < values.size(); i++) {
-      Integer.parseInt(values.get(i).getText()); //ovako text prebacujem u ceo broj
-
-      sum = sum + Integer.parseInt(values.get(i).getText());
-    }
-    System.out.println(sum);
-
-    // poredjenje dve vrednosti
-
-    int total = Integer.parseInt(
-      driver
-        .findElement(By.cssSelector(".totalAmount"))
-        .getText()
-        .split(":")[1].trim()
-    );
-
-    Assert.assertEquals(sum, total); //asertacija za poredjenje vrednosti
+    WebDriver driver = new ChromeDriver(options); // setuj options kao argument
+    driver.get("https://expired.badssl.com/");
+    System.out.println(driver.getTitle());
   }
 }

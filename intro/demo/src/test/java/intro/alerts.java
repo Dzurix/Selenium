@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.naming.directory.DirContext;
 import org.apache.commons.exec.ProcessDestroyer;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,8 +21,8 @@ public class alerts {
   public static void main(String[] args) throws InterruptedException {
     System.setProperty(
       "webdriver.chrome.driver",
-      // "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      // "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
     WebDriver driver = new ChromeDriver(); //uvek pisem WebDriver
     // String ime = "Upoje";
@@ -240,5 +241,21 @@ public class alerts {
     WebElement dropdown = driver.findElement(By.id("autocomplete"));
 
     dropdown.sendKeys("united");
+    Thread.sleep(3000);
+
+    List<WebElement> opcije = driver.findElements(
+      By.cssSelector(".ui-menu-item-wrapper")
+    );
+
+    // I nacin - kretanje po opcijama
+    dropdown.sendKeys(Keys.DOWN);
+    //II nacin petlja za autosugestive dropdowns
+    for (WebElement option : opcije) {
+      if (option.getText().contains("Tanzania")) {
+        option.click();
+        break; // kad nadjemo, izadji iz petlje
+      }
+    }
+    System.out.println(dropdown.getAttribute("value"));
   }
 }
