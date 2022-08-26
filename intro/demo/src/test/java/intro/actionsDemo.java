@@ -260,5 +260,13 @@ public class actionsDemo {
 
     // CHECKING BROKEN LINKS
 
+    // Java methods will call URL's and gets you the status code
+    //Step 1 - get all URL's and gets status code
+
+    // Step 2 - if status code > 400 then that URL is not working => link which tied to URL is broken
+    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+    String url = driver
+      .findElement(By.cssSelector("a[href*='soapui']"))
+      .getAttribute("href");
   }
 }
