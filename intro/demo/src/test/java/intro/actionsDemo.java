@@ -1,14 +1,20 @@
 package intro;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Proxy;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,7 +26,8 @@ import org.testng.Assert;
 
 public class actionsDemo {
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args)
+    throws InterruptedException, IOException {
     System.setProperty(
       "webdriver.chrome.driver",
       //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
@@ -213,33 +220,45 @@ public class actionsDemo {
 
     // Assert.assertEquals(sum, total); //asertacija za poredjenje vrednosti
 
-    // HANDLING HTTPS certifications
-    ChromeOptions options = new ChromeOptions();
+    // // HANDLING HTTPS certifications
+    // ChromeOptions options = new ChromeOptions();
 
-    // ubacivanje Proxy- ja
-    Proxy proxy = new Proxy();
+    // // ubacivanje Proxy- ja
+    // Proxy proxy = new Proxy();
 
-    proxy.setHttpProxy("ipaddress:4444");
+    // proxy.setHttpProxy("ipaddress:4444");
 
-    options.setCapability("proxy", proxy);
+    // options.setCapability("proxy", proxy);
 
-    // set downloading directory
-    Map<String, Object> prefs = new HashMap<String, Object>();
+    // // set downloading directory
+    // Map<String, Object> prefs = new HashMap<String, Object>();
 
-    prefs.put("download.default_directory", "/directory/path");
+    // prefs.put("download.default_directory", "/directory/path");
 
-    options.setExperimentalOption("prefs", prefs);
-    // FirefoxOptions options2 = new FirefoxOptions();
-    // EdgeOptions options3 = new EdgeOptions();
+    // options.setExperimentalOption("prefs", prefs);
+    // // FirefoxOptions options2 = new FirefoxOptions();
+    // // EdgeOptions options3 = new EdgeOptions();
 
-    options.setAcceptInsecureCerts(true); // prihvati nesigurne sajtove
-    System.setProperty(
-      "webdriver.chrome.driver",
-      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
-    );
-    WebDriver driver = new ChromeDriver(options); // setuj options kao argument
-    driver.get("https://expired.badssl.com/");
-    System.out.println(driver.getTitle());
+    // options.setAcceptInsecureCerts(true); // prihvati nesigurne sajtove
+    // System.setProperty(
+    //   "webdriver.chrome.driver",
+    //   //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+    //   "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+    // );
+    // WebDriver driver = new ChromeDriver(options); // setuj options kao argument
+    // driver.get("https://expired.badssl.com/");
+    // System.out.println(driver.getTitle());
+
+    // //TAKING SCREENSHOTS
+
+    // driver.get(
+    //   "https://mvnrepository.com/artifact/commons-io/commons-io/2.11.0"
+    // );
+
+    // File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    // FileUtils.copyFile(src, new File("C:/Users/dst/Documents/screenshot.png"));
+
+    // CHECKING BROKEN LINKS
+
   }
 }
