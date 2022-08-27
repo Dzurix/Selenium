@@ -2,6 +2,10 @@ package intro;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,15 +27,22 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class actionsDemo {
 
+  /**
+   * @param args
+   * @throws InterruptedException
+   * @throws IOException
+   * @throws MalformedURLException
+   */
   public static void main(String[] args)
-    throws InterruptedException, IOException {
+    throws InterruptedException, IOException, MalformedURLException {
     System.setProperty(
       "webdriver.chrome.driver",
-      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      //"C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
     WebDriver driver = new ChromeDriver();
     // driver.manage().window().maximize(); //maximiziranje prozora
@@ -265,8 +276,44 @@ public class actionsDemo {
 
     // Step 2 - if status code > 400 then that URL is not working => link which tied to URL is broken
     driver.get("https://rahulshettyacademy.com/AutomationPractice/");
-    String url = driver
-      .findElement(By.cssSelector("a[href*='soapui']"))
-      .getAttribute("href");
+
+    List<WebElement> links = driver.findElements(
+      By.cssSelector("li[class='gf-li'] a")
+    );
+
+    SoftAssert softAss = new SoftAssert();
+
+    for (WebElement link : links) {
+      String url = link.getAttribute("href");
+
+      HttpURLConnection conn = (HttpURLConnection) new URL(url)
+        .openConnection();
+
+      conn.setRequestMethod("HEAD");
+
+      conn.connect();
+
+      int respCode = conn.getResponseCode();
+
+      System.out.println(respCode);
+
+      softAss.assertTrue( // pozivam SOFT asertaciju
+        respCode < 400,
+        "The link with name " +
+        link.getText() +
+        " is broken with status code " +
+        respCode
+      );
+      // if (respCode > 400) {
+      //   System.out.println("The link with name " +
+      //   link.getText() +
+      //   " is broken with status code " +
+      //   respCode
+      //   );
+      //   Assert.assertTrue(false); // ovo ce prekinuti izvrsavanje skripte jer je HARD asertacija
+      //   // Zato uvodimo SOFT ASERTACIJU kako bi skripta nastavila da se izvrsava
+      // }
+    }
+    softAss.assertAll(); // OVO MORAM DA POZOVEM DA BI SE IZVRSILA ASERTACIJA
   }
 }
