@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -275,45 +276,83 @@ public class actionsDemo {
     //Step 1 - get all URL's and gets status code
 
     // Step 2 - if status code > 400 then that URL is not working => link which tied to URL is broken
-    driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+    // driver.get("https://rahulshettyacademy.com/AutomationPractice/");
 
-    List<WebElement> links = driver.findElements(
-      By.cssSelector("li[class='gf-li'] a")
-    );
+    // List<WebElement> links = driver.findElements(
+    //   By.cssSelector("li[class='gf-li'] a")
+    // );
 
-    SoftAssert softAss = new SoftAssert();
+    // SoftAssert softAss = new SoftAssert();
 
-    for (WebElement link : links) {
-      String url = link.getAttribute("href");
+    // for (WebElement link : links) {
+    //   String url = link.getAttribute("href");
 
-      HttpURLConnection conn = (HttpURLConnection) new URL(url)
-        .openConnection();
+    //   HttpURLConnection conn = (HttpURLConnection) new URL(url)
+    //     .openConnection();
 
-      conn.setRequestMethod("HEAD");
+    //   conn.setRequestMethod("HEAD");
 
-      conn.connect();
+    //   conn.connect();
 
-      int respCode = conn.getResponseCode();
+    //   int respCode = conn.getResponseCode();
 
-      System.out.println(respCode);
+    //   System.out.println(respCode);
 
-      softAss.assertTrue( // pozivam SOFT asertaciju
-        respCode < 400,
-        "The link with name " +
-        link.getText() +
-        " is broken with status code " +
-        respCode
-      );
-      // if (respCode > 400) {
-      //   System.out.println("The link with name " +
-      //   link.getText() +
-      //   " is broken with status code " +
-      //   respCode
-      //   );
-      //   Assert.assertTrue(false); // ovo ce prekinuti izvrsavanje skripte jer je HARD asertacija
-      //   // Zato uvodimo SOFT ASERTACIJU kako bi skripta nastavila da se izvrsava
-      // }
-    }
-    softAss.assertAll(); // OVO MORAM DA POZOVEM DA BI SE IZVRSILA ASERTACIJA
+    //   softAss.assertTrue( // pozivam SOFT asertaciju
+    //     respCode < 400,
+    //     "The link with name " +
+    //     link.getText() +
+    //     " is broken with status code " +
+    //     respCode
+    //   );
+    //   // if (respCode > 400) {
+    //   //   System.out.println("The link with name " +
+    //   //   link.getText() +
+    //   //   " is broken with status code " +
+    //   //   respCode
+    //   //   );
+    //   //   Assert.assertTrue(false); // ovo ce prekinuti izvrsavanje skripte jer je HARD asertacija
+    //   //   // Zato uvodimo SOFT ASERTACIJU kako bi skripta nastavila da se izvrsava
+    //   // }
+    // }
+    // softAss.assertAll(); // OVO MORAM DA POZOVEM DA BI SE IZVRSILA ASERTACIJA
+
+    // Web table sorting using JAVA STREAMS
+
+    driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
+
+    driver.findElement(By.xpath("//tr/th[1]")).click();
+
+    //capture all web elements into list
+    List<WebElement> voce = driver.findElements(By.xpath("//tr/td[1]"));
+
+    //capture text of all web elements into new (original) list
+    List<String> origList = voce
+      .stream()
+      .map(s -> s.getText())
+      .collect(Collectors.toList());
+    //sort original list and create a new (sorted) list
+
+    List<String> sortedList = origList
+      .stream()
+      .sorted()
+      .collect(Collectors.toList());
+    //compare original and sorted list
+    Assert.assertTrue(origList.equals(sortedList));
+    //scan the name column with getText - when you find "Rice", get the price
+
+    List<String> price = voce
+      .stream()
+      .filter(s -> s.getText().contains("Beans"))
+      .map(s -> ((actionsDemo) s).getPriceVoce(s))
+      .collect(Collectors.toList());
+  }
+
+  private static String getPriceVoce(WebElement s) {
+    String priceValue = s
+      .findElement(By.xpath("/following-sibling::td[1]"))
+      .getText();
+
+    return priceValue;
   }
 }
