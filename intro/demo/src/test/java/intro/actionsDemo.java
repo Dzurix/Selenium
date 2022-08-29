@@ -42,8 +42,8 @@ public class actionsDemo {
     throws InterruptedException, IOException, MalformedURLException {
     System.setProperty(
       "webdriver.chrome.driver",
-      "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      //"C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
     );
     WebDriver driver = new ChromeDriver();
     // driver.manage().window().maximize(); //maximiziranje prozora
@@ -317,42 +317,75 @@ public class actionsDemo {
     // }
     // softAss.assertAll(); // OVO MORAM DA POZOVEM DA BI SE IZVRSILA ASERTACIJA
 
-    // Web table sorting using JAVA STREAMS
+    // WEB TABLE SORTING using JAVA STREAMS
+
+    //   driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
+
+    //   driver.findElement(By.xpath("//tr/th[1]")).click();
+
+    //   //capture all web elements into list
+    //   List<WebElement> elementsList = driver.findElements(By.xpath("//tr/td[1]"));
+
+    //   //capture text of all web elements into new (original) list
+    //   List<String> origList = elementsList
+    //     .stream()
+    //     .map(s -> s.getText())
+    //     .collect(Collectors.toList());
+
+    //   //sort original list and create a new (sorted) list
+    //   List<String> sortedList = origList
+    //     .stream()
+    //     .sorted()
+    //     .collect(Collectors.toList());
+
+    //   //compare original and sorted list
+    //   Assert.assertTrue(origList.equals(sortedList));
+
+    //   //scan the name column with getText - when you find "Beans", get the price
+    //   // ako imam neki uslov moram da koristim "filter" na streamu, pa onda da bi dobio
+    //   //cenu jednog elementa, moram da koristim metod koji ja napravim ( getPriceVeggie)
+
+    //   List<String> price; //kreiram lokalnu varijablu
+
+    //   do {
+    //     //kada sam na novom stranici, ponovo uhvati listu novih elemenata
+    //     List<WebElement> novaLista = driver.findElements(By.xpath("//tr/td[1]"));
+
+    //     price =
+    //       novaLista
+    //         .stream()
+    //         .filter(s -> s.getText().contains("Rice"))
+    //         .map(s -> getPriceVeggie(s))
+    //         .collect(Collectors.toList());
+
+    //     price.forEach(a -> System.out.println("cena iznosi " + a)); // kako najlakse print listu svih elemenata
+
+    //     //pagination problem, tj sta ako imamo vise stranica
+    //     if (price.size() < 1) {
+    //       driver.findElement(By.cssSelector("[aria-label='Next']")).click();
+    //     }
+    //   } while (price.size() < 1);
+    // }
+
+    // private static String getPriceVeggie(WebElement s) {
+    //   String priceValue = s
+    //     .findElement(By.xpath("following-sibling::td[1]"))
+    //     .getText(); //hvatamo cenu
+    //   return priceValue;
+    //
+
+    //FILTERING WEB TABLE using JAVA STREAMS
 
     driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
 
-    driver.findElement(By.xpath("//tr/th[1]")).click();
+    driver.findElement(By.id("search-field")).sendKeys("Rice"); //posto smo vec ukucali sta trazimo, 1 element postoji
+    List<WebElement> veggies = driver.findElements(By.xpath("//tr/td[1]")); // 1 elemenat
 
-    //capture all web elements into list
-    List<WebElement> voce = driver.findElements(By.xpath("//tr/td[1]"));
-
-    //capture text of all web elements into new (original) list
-    List<String> origList = voce
+    List<WebElement> filteredList = veggies
       .stream()
-      .map(s -> s.getText())
-      .collect(Collectors.toList());
-    //sort original list and create a new (sorted) list
+      .filter(veggie -> veggie.getText().contains("Rice"))
+      .collect(Collectors.toList()); // 1 element
 
-    List<String> sortedList = origList
-      .stream()
-      .sorted()
-      .collect(Collectors.toList());
-    //compare original and sorted list
-    Assert.assertTrue(origList.equals(sortedList));
-    //scan the name column with getText - when you find "Rice", get the price
-
-    List<String> price = voce
-      .stream()
-      .filter(s -> s.getText().contains("Beans"))
-      .map(s -> ((actionsDemo) s).getPriceVoce(s))
-      .collect(Collectors.toList());
-  }
-
-  private static String getPriceVoce(WebElement s) {
-    String priceValue = s
-      .findElement(By.xpath("/following-sibling::td[1]"))
-      .getText();
-
-    return priceValue;
+    Assert.assertEquals(veggies.size(), filteredList.size());
   }
 }
