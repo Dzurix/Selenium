@@ -1,5 +1,7 @@
 package intro;
 
+import static org.openqa.selenium.support.locators.RelativeLocator.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -22,6 +24,7 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -376,16 +379,93 @@ public class actionsDemo {
 
     //FILTERING WEB TABLE using JAVA STREAMS
 
-    driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
+    // driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
 
-    driver.findElement(By.id("search-field")).sendKeys("Rice"); //posto smo vec ukucali sta trazimo, 1 element postoji
-    List<WebElement> veggies = driver.findElements(By.xpath("//tr/td[1]")); // 1 elemenat
+    // driver.findElement(By.id("search-field")).sendKeys("Rice"); //posto smo vec ukucali sta trazimo, 1 element postoji
+    // List<WebElement> veggies = driver.findElements(By.xpath("//tr/td[1]")); // 1 elemenat
 
-    List<WebElement> filteredList = veggies
-      .stream()
-      .filter(veggie -> veggie.getText().contains("Rice"))
-      .collect(Collectors.toList()); // 1 element
+    // List<WebElement> filteredList = veggies
+    //   .stream()
+    //   .filter(veggie -> veggie.getText().contains("Rice"))
+    //   .collect(Collectors.toList()); // 1 element
 
-    Assert.assertEquals(veggies.size(), filteredList.size());
+    // Assert.assertEquals(veggies.size(), filteredList.size());
+
+    //RELATIVNI LOKATORI
+
+    // driver.get("https://rahulshettyacademy.com/angularpractice/");
+
+    // WebElement nameEditBox = driver.findElement(
+    //   By.cssSelector("[name='name']")
+    // ); // ima 2 elementa, ali Selenium po default hvata prvi, a to nam odgovara za ovaj primer
+
+    // System.out.println(
+    //   driver.findElement(with(By.tagName("label")).above(nameEditBox)).getText()
+    // );
+
+    // //Below
+    // WebElement dateOfBirht = driver.findElement(
+    //   By.cssSelector("[for='dateofBirth']")
+    // );
+    // driver.findElement(with(By.tagName("input")).below(dateOfBirht)).click();
+
+    // //Left
+
+    // WebElement iceCreamLabel = driver.findElement(
+    //   By.cssSelector("[for='exampleCheck1']")
+    // );
+    // driver
+    //   .findElement(with(By.tagName("input")).toLeftOf(iceCreamLabel))
+    //   .click();
+
+    // //Right
+    // WebElement rdb = driver.findElement(By.id("inlineRadio1"));
+
+    // System.out.println(
+    //   driver.findElement(with(By.tagName("label")).toRightOf(rdb)).getText()
+    // );
+
+    //INVOKING MULTIPLE WINDOWS/TABS
+
+    //Test scenario
+    // Go to one website
+    // Then go to second website and grab some text
+    //Text from second website, paste in some field of first website
+
+    // driver.get("https://rahulshettyacademy.com/angularpractice/");
+
+    // driver.switchTo().newWindow(WindowType.WINDOW);
+    // driver.switchTo().newWindow(WindowType.TAB);
+
+    // Set<String> handles = driver.getWindowHandles();
+    // Iterator<String> iter = handles.iterator();
+
+    // String parentWindowID = iter.next();
+    // String childWindowID = iter.next();
+
+    // driver.switchTo().window(childWindowID); // idem na drugi tab
+
+    // driver.get("https://rahulshettyacademy.com/");
+    // String courseName = driver
+    //   .findElements(
+    //     By.cssSelector("a[href*='https://courses.rahulshettyacademy.com/p']")
+    //   )
+    //   .get(1)
+    //   .getText();
+
+    // driver.switchTo().window(parentWindowID); //vracam se na prvi tab
+    // // driver.quit(); //brise sve browsere
+    // // taking WebElement PARTIAL SCREENSHOT
+
+    // WebElement name = driver.findElement(By.cssSelector("[name='name']"));
+    // name.sendKeys(courseName);
+    // File fileName = name.getScreenshotAs(OutputType.FILE);
+    // FileUtils.copyFile(fileName, new File("LogoRahul.png"));
+
+    // //Capturing Height and Width of WebElement for UX validation
+
+    // System.out.println(name.getRect().getDimension().getHeight());
+    // System.out.println(name.getRect().getDimension().getWidth());
+
   }
 }
