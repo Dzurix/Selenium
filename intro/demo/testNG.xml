@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="Vrsta testa">
+         <classes>
+             <class name="testNG.testNGPractice"/>
+             <class name="testNG.primer"/>
+                  
+          </classes>
+     </test> <!-- kraj prve vrsta testa -->
+     <test name="Druga vrsta testa">
+        <classes>
+            <class name="testNG.day3">
+                <methods>
+                    <exclude name="MobileLoginCarLoan"/> <!-- kako da iskljcim samo jedan metod (test case) -->
+                    <!-- <include name="loginAPIcarLoan"/> ovako samo jedan da se pokrene -->
+                </methods>
+            </class>
+         </classes>
+     </test><!-- kraj druge vrsta testa -->
+</suite> <!-- Suite -->

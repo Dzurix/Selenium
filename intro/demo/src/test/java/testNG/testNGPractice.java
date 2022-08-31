@@ -1,9 +1,8 @@
-package intro;
+package testNG;
 
-import io.opentelemetry.exporter.logging.SystemOutLogExporter;
 import org.testng.annotations.Test;
 
-public class testNG {
+public class testNGPractice {
 
   @Test //ovako pokrecem testove
   public void Demo() {
