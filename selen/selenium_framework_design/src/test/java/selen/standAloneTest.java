@@ -2,9 +2,15 @@ package selen;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class standAloneTest {
 
@@ -18,5 +24,25 @@ public class standAloneTest {
     driver.findElement(By.id("userEmail")).sendKeys("anshika@gmail.com");
     driver.findElement(By.id("userPassword")).sendKeys("Iamking@000");
     driver.findElement(By.id("login")).click();
+
+    List<WebElement> products = driver.findElements(
+      By.cssSelector(".card-body")
+    );
+
+    WebElement prod = products
+      .stream()
+      .filter(
+        product ->
+          product.findElement(By.tagName("b")).getText().equals("ZARA COAT 3")
+      )
+      .findFirst()
+      .orElse(null);
+
+    prod.findElement(By.cssSelector(".card-body button:last-of-type")).click(); //dodavanje proizvoda u korpu
+    //cekamo da se pojavi poruka da smo ubacili proizvod u korpu
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    wait.until(
+      ExpectedConditions.visibilityOfElementLocated(By.id("toast-container"))
+    );
   }
 }
