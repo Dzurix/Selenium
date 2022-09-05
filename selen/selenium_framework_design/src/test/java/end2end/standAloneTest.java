@@ -1,5 +1,6 @@
-package selen;
+package end2end;
 
+import end2endPOM.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import java.util.List;
@@ -25,6 +26,9 @@ public class standAloneTest {
     WebDriver driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     driver.get("https://rahulshettyacademy.com/client");
+
+    // kreiranje objekta od ove klase
+    LandingPage landingPage = new LandingPage(driver);
 
     driver.findElement(By.id("userEmail")).sendKeys("anshika@gmail.com");
     driver.findElement(By.id("userPassword")).sendKeys("Iamking@000");
