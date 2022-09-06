@@ -10,14 +10,58 @@ import org.openqa.selenium.support.PageFactory;
 // inheritance se postize preko 'extends'
 public class LandingPage extends AbstractComponent {
 
+  // AbstractComponet je parrent , a ova klasa je child
   WebDriver driver;
 
+  // OVO JE KONSTRUKTOR koji nam pomaze da importujemo driver
+  // samo konstruktori mogu da hvataju varijable
+  //- ima isto ime kao i ime klase
+  // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
+  // - najbolje mesto da se napise kod za inicijalizaciju
   public LandingPage(WebDriver driver) {
-    // OVO JE KONSTRUKTOR koji nam pomaze da importujemo driver
-    //- ima isto ime kao i ime klase
-    // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
-    // - najbolje mesto da se napise kod za inicijalizaciju
+    // pomocu 'super' saljemo driver to parrentu
+    super(driver);
+    this.driver = driver; // inicijalizacija
+    //ovo je za PageFactory
+    PageFactory.initElements(driver, this);
+  }
 
+  // WebElement userEmail = driver.findElement(By.id("userEmail"));
+
+  //PageFactory - kraci nacin pisanja
+
+  @FindBy(id = "userEmail")
+  WebElement userEmail;
+
+  // @FindBy(className (ili css , ili xpath) = "userEmail")
+  // WebElement userEmail;
+
+  @FindBy(id = "userPassword")
+  WebElement userPassword;
+
+  @FindBy(id = "login")
+  WebElement submit;
+
+  //ACTION metods
+
+  public void goTo() {
+    driver.get("https://rahulshettyacademy.com/client");
+  }
+
+  public void loginApplication(String email, String password) {
+    userEmail.sendKeys(email);
+    userPassword.sendKeys(password);
+    submit.click();
+  }
+}
+  //- ima isto ime kao i ime klase
+  // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
+  // - najbolje mesto da se napise kod za inicijalizaciju
+  public LandingPage(WebDriver driver) {
+
+      // pomocu 'super' saljemo driver to child
+    super(driver);
+  
     this.driver = driver; // inicijalizacija
     //ovo je za PageFactory
     PageFactory.initElements(driver, this);
