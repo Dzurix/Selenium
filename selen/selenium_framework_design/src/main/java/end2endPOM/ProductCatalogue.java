@@ -1,5 +1,6 @@
 package end2endPOM;
 
+import AbstractComponents.AbstractComponent;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductCatalogue {
+public class ProductCatalogue extends AbstractComponent {
+
+  // AbstractComponet je parrent , a ova klasa je child
 
   WebDriver driver;
 
@@ -17,6 +20,7 @@ public class ProductCatalogue {
     // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
     // - najbolje mesto da se napise kod za inicijalizaciju
 
+    super(driver);
     this.driver = driver; // inicijalizacija
     //ovo je za PageFactory
     PageFactory.initElements(driver, this);
@@ -28,9 +32,13 @@ public class ProductCatalogue {
 
   @FindBy(css = ".card-body")
   List<WebElement> products; //posto je mnozina, koristim 'List'
- 
+
+  By productsBy = By.cssSelector(".card-body");
+
   //ACTION metods
 
-public void 
-
+  public List<WebElement> getProductList() {
+    waitForElementToAppear(productsBy);
+    return products;
+  }
 }
