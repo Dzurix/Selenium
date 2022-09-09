@@ -19,8 +19,12 @@ public class LandingPage extends AbstractComponent {
   // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
   // - najbolje mesto da se napise kod za inicijalizaciju
   public LandingPage(WebDriver driver) {
+<<<<<<< HEAD
     // pomocu 'super' saljemo driver (varijablu) to parrentu
     // ali da bi parrent uhvatio taj driver (varijablu) moramo to da radimo u KONSTRUKTORU
+=======
+    // pomocu 'super' saljemo driver to parrentu
+>>>>>>> a3bbf9013cfe2c9dc543abcab8de6af3e38ef73f
     super(driver);
     this.driver = driver; // inicijalizacija
     //ovo je za PageFactory
