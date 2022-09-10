@@ -1,5 +1,6 @@
 package intro;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,11 +12,14 @@ import org.testng.Assert; //importovanje preko depencency umesto importovanje Te
 public class dropdowns {
 
   public static void main(String[] args) throws InterruptedException {
-    System.setProperty(
-      "webdriver.chrome.driver",
-      //  "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
-    );
+    // System.setProperty(
+    //   "webdriver.chrome.driver",
+    //   //  "C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+    //   "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+    // );
+
+    WebDriverManager.chromedriver().setup();
+
     WebDriver driver = new ChromeDriver(); //uvek pisem WebDriver
 
     driver.get("https://rahulshettyacademy.com/dropdownsPractise/");

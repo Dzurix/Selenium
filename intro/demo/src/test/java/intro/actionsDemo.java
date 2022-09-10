@@ -2,6 +2,7 @@ package intro;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.*;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -43,11 +44,13 @@ public class actionsDemo {
    */
   public static void main(String[] args)
     throws InterruptedException, IOException, MalformedURLException {
-    System.setProperty(
-      "webdriver.chrome.driver",
-      //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
-      "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
-    );
+    // System.setProperty(
+    //   "webdriver.chrome.driver",
+    //   //"C:/Users/deki2/OneDrive/Documents/chromedriver_win32/chromedriver.exe" // LAPTOP
+    //  // "C:/Users/dst/Documents/chromedriver_win32/chromedriver.exe" //POSO
+    // );
+
+    WebDriverManager.chromedriver().setup();
     WebDriver driver = new ChromeDriver();
     // driver.manage().window().maximize(); //maximiziranje prozora
     // driver.get("https://www.amazon.com/");

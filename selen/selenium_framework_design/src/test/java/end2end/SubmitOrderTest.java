@@ -1,5 +1,8 @@
 package end2end;
 
+import end2endPOM.CartPage;
+import end2endPOM.CheckoutPage;
+import end2endPOM.ConfirmationPage;
 import end2endPOM.LandingPage;
 import end2endPOM.ProductCatalogue;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -26,151 +29,36 @@ public class SubmitOrderTest {
 
     WebDriver driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    
+
     // kreiranje objekta od ove klase
     LandingPage landingPage = new LandingPage(driver);
 
     // pozivanje metoda
     landingPage.goTo();
-    landingPage.loginApplication("anshika@gmail.com", "Iamking@000");
-
-   ProductCatalogue productCatalogue =  new ProductCatalogue(driver);
-   List <WebElement> products = productCatalogue.getProductList();
-
-    WebElement prod = products
-      .stream()
-      .filter(
-        product ->
-          product.findElement(By.tagName("b")).getText().equals(productName)
-      )
-      .findFirst()
-      .orElse(null);
-
-    prod.findElement(By.cssSelector(".card-body button:last-of-type")).click(); //dodavanje proizvoda u korpu
-    //cekamo da se pojavi poruka da smo ubacili proizvod u korpu
-
-    wait.until(
-      ExpectedConditions.visibilityOfElementLocated(By.id("toast-container"))
+    ProductCatalogue productCatalogue = landingPage.loginApplication(
+      "anshika@gmail.com",
+      "Iamking@000"
     );
 
-    //cekamo da se skloni ona animacija nakon narucivanja proizvoda
-    wait.until(
-      ExpectedConditions.invisibilityOf(
-        driver.findElement(By.cssSelector(".ng-animating"))
-      )
-    ); //kad koristimo INVISIBILITY, onda treba cela putanja sa driver.....
+    // ProductCatalogue productCatalogue = new ProductCatalogue(driver);  OVO SADA NE TREBA JER SMO KREIRALI OBJEKAT U METODU KOD LandingPage klase
+    List<WebElement> products = productCatalogue.getProductList();
 
-    driver
-      .findElement(By.cssSelector("[routerlink='/dashboard/cart']"))
-      .click();
+    productCatalogue.addProductToCart(productName);
+
+    CartPage cartPage = productCatalogue.goToCartPage();
 
     //Provera sta imamo u korpi
 
-    List<WebElement> listaKorpa = driver.findElements(
-      By.cssSelector(".cartSection h3")
-    );
+    Boolean match = cartPage.VerifyProductDisplay(productName);
 
-    Boolean poklapanje = listaKorpa
-      .stream()
-      .anyMatch(p -> p.getText().equalsIgnoreCase(productName));
-
-    Assert.assertTrue(poklapanje);
-
+    Assert.assertTrue(match);
     // Odlazak na checkout
-    driver.findElement(By.cssSelector(".totalRow button")).click();
+    CheckoutPage checkoutPage = cartPage.goToCheckout();
 
-    Actions a = new Actions(driver);
+    checkoutPage.selectCountry("Yugo");
+    ConfirmationPage confirmationPage = checkoutPage.submitOrder();
 
-    a
-      .sendKeys(
-        driver.findElement(By.cssSelector("[placeholder = 'Select Country']")),
-        "Yugo"
-      )
-      .build()
-      .perform();
-
-    wait.until(
-      ExpectedConditions.visibilityOfElementLocated(
-        By.cssSelector(".ta-results")
-      )
-    );
-
-    driver.findElement(By.cssSelector(".ta-item:nth-of-type(2)")).click();
-    driver.findElement(By.cssSelector("action__submit")).click();
-
-    String confirmMessage = driver
-      .findElement(By.cssSelector(".hero-primary"))
-      .getText();
-
-    Assert.assertTrue(
-      confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER.")
-    );
-  }
-}
-    WebElement prod = products
-      .stream()
-      .filter(
-        product ->
-          product.findElement(By.tagName("b")).getText().equals(productName)
-      )
-      .findFirst()
-      .orElse(null);
-
-    prod.findElement(By.cssSelector(".card-body button:last-of-type")).click(); //dodavanje proizvoda u korpu
-    //cekamo da se pojavi poruka da smo ubacili proizvod u korpu
-
-    wait.until(
-      ExpectedConditions.visibilityOfElementLocated(By.id("toast-container"))
-    );
-
-    //cekamo da se skloni ona animacija nakon narucivanja proizvoda
-    wait.until(
-      ExpectedConditions.invisibilityOf(
-        driver.findElement(By.cssSelector(".ng-animating"))
-      )
-    ); //kad koristimo INVISIBILITY, onda treba cela putanja sa driver.....
-
-    driver
-      .findElement(By.cssSelector("[routerlink='/dashboard/cart']"))
-      .click();
-
-    //Provera sta imamo u korpi
-
-    List<WebElement> listaKorpa = driver.findElements(
-      By.cssSelector(".cartSection h3")
-    );
-
-    Boolean poklapanje = listaKorpa
-      .stream()
-      .anyMatch(p -> p.getText().equalsIgnoreCase(productName));
-
-    Assert.assertTrue(poklapanje);
-
-    // Odlazak na checkout
-    driver.findElement(By.cssSelector(".totalRow button")).click();
-
-    Actions a = new Actions(driver);
-
-    a
-      .sendKeys(
-        driver.findElement(By.cssSelector("[placeholder = 'Select Country']")),
-        "Yugo"
-      )
-      .build()
-      .perform();
-
-    wait.until(
-      ExpectedConditions.visibilityOfElementLocated(
-        By.cssSelector(".ta-results")
-      )
-    );
-
-    driver.findElement(By.cssSelector(".ta-item:nth-of-type(2)")).click();
-    driver.findElement(By.cssSelector("action__submit")).click();
-
-    String confirmMessage = driver
-      .findElement(By.cssSelector(".hero-primary"))
-      .getText();
+    String confirmMessage = confirmationPage.getConfirmationMessage();
 
     Assert.assertTrue(
       confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER.")

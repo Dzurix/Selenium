@@ -25,8 +25,7 @@ public class LandingPage extends AbstractComponent {
     this.driver = driver; // inicijalizacija
     //ovo je za PageFactory
     PageFactory.initElements(driver, this);
-
-    //add for commit 
+    //add for commit
   }
 
   // WebElement userEmail = driver.findElement(By.id("userEmail"));
@@ -51,50 +50,13 @@ public class LandingPage extends AbstractComponent {
     driver.get("https://rahulshettyacademy.com/client");
   }
 
-  public void loginApplication(String email, String password) {
+  public ProductCatalogue loginApplication(String email, String password) {
     userEmail.sendKeys(email);
     userPassword.sendKeys(password);
     submit.click();
-  }
-}
-  //- ima isto ime kao i ime klase
-  // - OVO JE prvi metod koji se izvrsava ko koristi ovu klasu
-  // - najbolje mesto da se napise kod za inicijalizaciju
-  public LandingPage(WebDriver driver) {
-
-      // pomocu 'super' saljemo driver to child
-    super(driver);
-  
-    this.driver = driver; // inicijalizacija
-    //ovo je za PageFactory
-    PageFactory.initElements(driver, this);
-  }
-
-  // WebElement userEmail = driver.findElement(By.id("userEmail"));
-
-  //PageFactory - kraci nacin pisanja
-
-  @FindBy(id = "userEmail")
-  WebElement userEmail;
-
-  // @FindBy(className (ili css , ili xpath) = "userEmail")
-  // WebElement userEmail;
-
-  @FindBy(id = "userPassword")
-  WebElement userPassword;
-
-  @FindBy(id = "login")
-  WebElement submit;
-
-  //ACTION metods
-
-  public void goTo() {
-    driver.get("https://rahulshettyacademy.com/client");
-  }
-
-  public void loginApplication(String email, String password) {
-    userEmail.sendKeys(email);
-    userPassword.sendKeys(password);
-    submit.click();
+    //kreiranje novog objekta od te klase
+    // da ne moramo stalno da pisemo svaki put objekat
+    ProductCatalogue productCatalogue = new ProductCatalogue(driver);
+    return productCatalogue;
   }
 }
