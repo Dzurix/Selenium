@@ -14,6 +14,7 @@ public class CheckoutPage extends AbstractComponent {
 
   public CheckoutPage(WebDriver driver) {
     super(driver);
+    this.driver = driver;
     //TODO Auto-generated constructor stub
     PageFactory.initElements(driver, this);
   }
@@ -21,7 +22,7 @@ public class CheckoutPage extends AbstractComponent {
   @FindBy(css = ".action__submit")
   WebElement submit;
 
-  @FindBy(css = "[placeholder = 'Select Country']")
+  @FindBy(css = "[placeholder='Select Country']")
   WebElement country;
 
   @FindBy(css = ".ta-item:nth-of-type(2)")
