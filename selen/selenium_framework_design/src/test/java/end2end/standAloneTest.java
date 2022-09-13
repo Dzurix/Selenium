@@ -105,7 +105,7 @@ public class standAloneTest {
     );
 
     driver.findElement(By.cssSelector(".ta-item:nth-of-type(2)")).click();
-    driver.findElement(By.cssSelector("action__submit")).click();
+    driver.findElement(By.cssSelector(".action__submit")).click();
 
     String confirmMessage = driver
       .findElement(By.cssSelector(".hero-primary"))

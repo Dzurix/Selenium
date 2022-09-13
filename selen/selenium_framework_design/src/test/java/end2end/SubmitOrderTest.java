@@ -23,7 +23,7 @@ import org.testng.Assert;
 
 public class SubmitOrderTest {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     String productName = "ZARA COAT 3";
     WebDriverManager.chromedriver().setup(); //umemsto lokacije u pom.XML importujemo WebDriverManager
 

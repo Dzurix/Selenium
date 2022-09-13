@@ -60,11 +60,13 @@ public class ProductCatalogue extends AbstractComponent {
     return prod;
   }
 
-  public void addProductToCart(String productName) {
+  public void addProductToCart(String productName) throws InterruptedException {
     WebElement prod = getProductByName(productName);
     prod.findElement(addToCart).click(); //dodavanje proizvoda u korpu
-    //cekamo da se pojavi poruka da smo ubacili proizvod u korpu
-    waitForElementToAppear(toastMessage);
-    waitForElementToDisappear(spiner);
+
+    Thread.sleep(3000);
+    // //cekamo da se pojavi poruka da smo ubacili proizvod u korpu
+    // waitForElementToAppear(toastMessage);
+    // waitForElementToDisappear(spiner);
   }
 }
