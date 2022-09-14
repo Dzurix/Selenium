@@ -1,4 +1,4 @@
-package end2end;
+package end2end.Tests;
 
 import end2endPOM.CartPage;
 import end2endPOM.CheckoutPage;
@@ -29,7 +29,6 @@ public class SubmitOrderTest {
 
     WebDriver driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
     // kreiranje objekta od ove klase
     LandingPage landingPage = new LandingPage(driver);
 

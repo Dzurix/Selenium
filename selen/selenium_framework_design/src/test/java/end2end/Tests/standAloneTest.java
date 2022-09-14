@@ -1,4 +1,4 @@
-package end2end;
+package end2end.Tests;
 
 import end2endPOM.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -65,6 +65,57 @@ public class standAloneTest {
     //cekamo da se skloni ona animacija nakon narucivanja proizvoda
     wait.until(
       ExpectedConditions.invisibilityOf(
+        driver.findElement(By.cssSelector(".ng-animating"))
+      )
+    ); //kad koristimo INVISIBILITY, onda treba cela putanja sa driver.....
+
+    driver
+      .findElement(By.cssSelector("[routerlink='/dashboard/cart']"))
+      .click();
+
+    //Provera sta imamo u korpi
+
+    List<WebElement> listaKorpa = driver.findElements(
+      By.cssSelector(".cartSection h3")
+    );
+
+    Boolean poklapanje = listaKorpa
+      .stream()
+      .anyMatch(p -> p.getText().equalsIgnoreCase(productName));
+
+    Assert.assertTrue(poklapanje);
+
+    // Odlazak na checkout
+    driver.findElement(By.cssSelector(".totalRow button")).click();
+
+    Actions a = new Actions(driver);
+
+    a
+      .sendKeys(
+        driver.findElement(By.cssSelector("[placeholder = 'Select Country']")),
+        "Yugo"
+      )
+      .build()
+      .perform();
+
+    wait.until(
+      ExpectedConditions.visibilityOfElementLocated(
+        By.cssSelector(".ta-results")
+      )
+    );
+
+    driver.findElement(By.cssSelector(".ta-item:nth-of-type(2)")).click();
+    driver.findElement(By.cssSelector(".action__submit")).click();
+
+    String confirmMessage = driver
+      .findElement(By.cssSelector(".hero-primary"))
+      .getText();
+
+    Assert.assertTrue(
+      confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER.")
+    );
+  }
+}
         driver.findElement(By.cssSelector(".ng-animating"))
       )
     ); //kad koristimo INVISIBILITY, onda treba cela putanja sa driver.....
