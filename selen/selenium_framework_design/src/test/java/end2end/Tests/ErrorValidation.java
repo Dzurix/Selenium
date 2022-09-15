@@ -5,7 +5,6 @@ import end2endPOM.CartPage;
 import end2endPOM.CheckoutPage;
 import end2endPOM.ConfirmationPage;
 import end2endPOM.LandingPage;
-import end2endPOM.OrderPage;
 import end2endPOM.ProductCatalogue;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.IOException;
@@ -25,12 +24,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class BaseTestSubmitOrder extends BaseTest {
-
-  String productName = "ZARA COAT 3";
+public class ErrorValidation extends BaseTest {
 
   @Test
-  public void submitOrder() throws IOException, InterruptedException {
+  public void LoginErrorValidiation() throws IOException, InterruptedException {
+    String productName = "ZARA COAT 3";
+
+    landingPage.loginApplication("anshika@gmail.com", "wololo");
+
+    Assert.assertEquals(
+      "Incorrect email or password.",
+      landingPage.getErrorMessage()
+    );
+  }
+
+  @Test
+  public void ProductErrorValidation() throws InterruptedException {
+    String productName = "ZARA COAT 3";
+
     ProductCatalogue productCatalogue = landingPage.loginApplication(
       "anshika@gmail.com",
       "Iamking@000"
@@ -45,31 +56,8 @@ public class BaseTestSubmitOrder extends BaseTest {
 
     //Provera sta imamo u korpi
 
-    Boolean match = cartPage.VerifyProductDisplay(productName);
+    Boolean match = cartPage.VerifyProductDisplay("ZARA COAT 33");
 
-    Assert.assertTrue(match);
-    // Odlazak na checkout
-    CheckoutPage checkoutPage = cartPage.goToCheckout();
-
-    checkoutPage.selectCountry("Yugo");
-    ConfirmationPage confirmationPage = checkoutPage.submitOrder();
-
-    String confirmMessage = confirmationPage.getConfirmationMessage();
-
-    Assert.assertTrue(
-      confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER.")
-    );
-  }
-
-  //Verifikacija da se ZARA COAT 3 prikazuje na ORDERS stranici
-  @Test(dependsOnMethods = { "submitOrder" }) //ovaj ce se uvek izvrsiti posle onog kojeg definisemo u zagradi
-  public void OrderHistoryTest() {
-    ProductCatalogue productCatalogue = landingPage.loginApplication(
-      "anshika@gmail.com",
-      "Iamking@000"
-    );
-
-    OrderPage orderPage = productCatalogue.goToOrderPage();
-    Assert.assertTrue(orderPage.VerifyOrdersDisplay(productName));
+    Assert.assertFalse(match);
   }
 }

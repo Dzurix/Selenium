@@ -10,10 +10,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
   public WebDriver driver;
+  public LandingPage landingPage; //kreiranje objekta kao public da bi sve klase mogle da pristupe
 
   public WebDriver initializeDriver() throws IOException {
     // U JAVI postoji jedna PROPERTIES klasa koja cita GLOBALNE properties koje mi definisemo
@@ -41,10 +44,16 @@ public class BaseTest {
     return driver;
   }
 
+  @BeforeMethod(alwaysRun = true)
   public LandingPage launchApplication() throws IOException {
     driver = initializeDriver();
-    LandingPage landingPage = new LandingPage(driver);
+    landingPage = new LandingPage(driver);
     landingPage.goTo();
     return landingPage;
+  }
+
+  @AfterMethod(alwaysRun = true)
+  public void teardown() {
+    driver.close();
   }
 }

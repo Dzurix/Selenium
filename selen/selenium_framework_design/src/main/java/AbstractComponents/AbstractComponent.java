@@ -1,6 +1,7 @@
 package AbstractComponents;
 
 import end2endPOM.CartPage;
+import end2endPOM.OrderPage;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,8 +26,17 @@ public class AbstractComponent {
     wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
   }
 
+  public void waitForWebElementToAppear(WebElement findBy) {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+    wait.until(ExpectedConditions.visibilityOf(findBy));
+  }
+
   @FindBy(css = "[routerlink='/dashboard/cart']")
   WebElement cartHeader;
+
+  @FindBy(css = "[routerlink*='myorders']")
+  WebElement orderHeader;
 
   public CartPage goToCartPage() {
     cartHeader.click();
@@ -40,5 +50,11 @@ public class AbstractComponent {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     //cekamo da se skloni ona animacija nakon narucivanja proizvoda
     wait.until(ExpectedConditions.invisibilityOf(elem)); //kad koristimo INVISIBILITY, onda treba cela putanja sa driver.....
+  }
+
+  public OrderPage goToOrderPage() {
+    orderHeader.click();
+    OrderPage orderPage = new OrderPage(driver);
+    return orderPage;
   }
 }
