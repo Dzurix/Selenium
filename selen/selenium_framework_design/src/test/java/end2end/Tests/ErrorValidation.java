@@ -33,8 +33,8 @@ public class ErrorValidation extends BaseTest {
     landingPage.loginApplication("anshika@gmail.com", "wololo");
 
     Assert.assertEquals(
-      "Incorrect email or password.",
-      landingPage.getErrorMessage()
+            "Incorrect email or password.",
+            landingPage.getErrorMessage()
     );
   }
 
@@ -43,8 +43,8 @@ public class ErrorValidation extends BaseTest {
     String productName = "ZARA COAT 3";
 
     ProductCatalogue productCatalogue = landingPage.loginApplication(
-      "anshika@gmail.com",
-      "Iamking@000"
+            "anshika@gmail.com",
+            "Iamking@000"
     );
 
     // ProductCatalogue productCatalogue = new ProductCatalogue(driver);  OVO SADA NE TREBA JER SMO KREIRALI OBJEKAT U METODU KOD LandingPage klase
