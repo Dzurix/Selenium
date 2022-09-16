@@ -8,14 +8,19 @@ import end2endPOM.LandingPage;
 import end2endPOM.OrderPage;
 import end2endPOM.ProductCatalogue;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.Action;
+import org.apache.commons.io.FileUtils;
 import org.apache.hc.core5.util.Asserts;
+import org.asynchttpclient.exception.PoolAlreadyClosedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -84,6 +89,24 @@ public class BaseTestSubmitOrder extends BaseTest {
     OrderPage orderPage = productCatalogue.goToOrderPage();
     Assert.assertTrue(orderPage.VerifyOrdersDisplay(productName));
   }
+
+  public String getScreenShoot(String testCaseName) throws IOException {
+    TakesScreenshot slikajScreenshot = (TakesScreenshot) driver;
+    File source = slikajScreenshot.getScreenshotAs(OutputType.FILE);
+
+    File file = new File(
+      System.getProperty("user.dir") + "//reports//" + testCaseName + ".png"
+    );
+
+    FileUtils.copyFile(source, file);
+
+    return (
+      System.getProperty("user.dir") + "//reports//" + testCaseName + ".png"
+    );
+  }
+
+  //Extent reports
+
   //Data provider
 
   //        PRVI nacin
@@ -114,4 +137,13 @@ public class BaseTestSubmitOrder extends BaseTest {
 
   //          TRECI nacin
 
+  @DataProvider
+  public Object[][] getData() throws IOException {
+    List<HashMap<String, String>> data = getJSONdataToMap(
+      System.getProperty("user.dir") +
+      "//src//test//java//end2end//podaci//podaciJSON.json"
+    );
+
+    return new Object[][] { { data.get(0) }, { data.get(1) } };
+  }
 }

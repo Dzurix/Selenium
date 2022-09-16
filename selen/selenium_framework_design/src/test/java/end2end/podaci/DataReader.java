@@ -17,7 +17,7 @@ public class DataReader {
     String jsonContent = FileUtils.readFileToString(
       new File(
         System.getProperty("user.dir") +
-        "src//test//java//end2end//podaci//podaciJSON.json"
+        "//src//test//java//end2end//podaci//podaciJSON.json"
       ),
       StandardCharsets.UTF_8
     );

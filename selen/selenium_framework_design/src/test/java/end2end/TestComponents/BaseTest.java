@@ -1,11 +1,18 @@
 package end2end.TestComponents;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import end2endPOM.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -42,6 +49,24 @@ public class BaseTest {
 
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     return driver;
+  }
+
+  // OVO JE SAD MAXIMALNO GENERICKI NAPISANO I MOZE SE KORISTITI SVUDA
+  public List<HashMap<String, String>> getJSONdataToMap(String filePath)
+    throws IOException {
+    //reading JSON to String
+    String jsonContent = FileUtils.readFileToString(
+      new File(filePath),
+      StandardCharsets.UTF_8
+    );
+    //String to HashMap using Jackson Databind (from MVN repo)
+    ObjectMapper mapper = new ObjectMapper();
+
+    List<HashMap<String, String>> data = mapper.readValue(
+      jsonContent,
+      new TypeReference<List<HashMap<String, String>>>() {}
+    );
+    return data;
   }
 
   @BeforeMethod(alwaysRun = true)
