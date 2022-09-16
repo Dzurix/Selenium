@@ -10,6 +10,7 @@ import end2endPOM.ProductCatalogue;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.Action;
@@ -23,29 +24,40 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class BaseTestSubmitOrder extends BaseTest {
 
   String productName = "ZARA COAT 3";
 
-  @Test
-  public void submitOrder() throws IOException, InterruptedException {
+  @Test(dataProvider = "getData")
+  // public void submitOrder(String email, String password, String productName)  //zbog dataProvidera smo ubacili vrstu podataka
+  //   throws IOException, InterruptedException {
+  public void submitOrder(HashMap<String, String> input)  //primer za HashMap
+    throws IOException, InterruptedException {
+    // ProductCatalogue productCatalogue = landingPage.loginApplication(
+    //   email,
+    //   password // zbog dataProvidera ubacujem varijable email i password
+    // );
+
     ProductCatalogue productCatalogue = landingPage.loginApplication(
-      "anshika@gmail.com",
-      "Iamking@000"
+      input.get("email"),
+      input.get("password") // zbog HashMap ubacujem varijable email i password
     );
 
     // ProductCatalogue productCatalogue = new ProductCatalogue(driver);  OVO SADA NE TREBA JER SMO KREIRALI OBJEKAT U METODU KOD LandingPage klase
     List<WebElement> products = productCatalogue.getProductList();
 
-    productCatalogue.addProductToCart(productName);
+    // productCatalogue.addProductToCart(productName);
+    productCatalogue.addProductToCart(input.get("productName")); // HashMap
 
     CartPage cartPage = productCatalogue.goToCartPage();
 
     //Provera sta imamo u korpi
 
-    Boolean match = cartPage.VerifyProductDisplay(productName);
+    // Boolean match = cartPage.VerifyProductDisplay(productName);
+    Boolean match = cartPage.VerifyProductDisplay(input.get("productName"));
 
     Assert.assertTrue(match);
     // Odlazak na checkout
@@ -72,4 +84,34 @@ public class BaseTestSubmitOrder extends BaseTest {
     OrderPage orderPage = productCatalogue.goToOrderPage();
     Assert.assertTrue(orderPage.VerifyOrdersDisplay(productName));
   }
+  //Data provider
+
+  //        PRVI nacin
+
+  // @DataProvider
+  // public Object[][] getData() {
+  //   return new Object[][] {
+  //     { "anshika@gmail.com", "Iamking@000", "ZARA COAT 3" },
+  //     { "shetty@gmail.com", "Iamking@000", "ADIDAS ORIGINAL" },
+  //   };
+  // }
+
+  //          DRUGI nacin
+
+  // @DataProvider //preko hashMap-a
+  // public Object[][] getData() {
+  //   HashMap<String, String> map = new HashMap<String, String>();
+  //   map.put("email", "anshika@gmail.com");
+  //   map.put("password", "Iamking@000");
+  //   map.put("productName", "ZARA COAT 3");
+
+  //   HashMap<String, String> map1 = new HashMap<String, String>();
+  //   map1.put("email", "shetty@gmail.com");
+  //   map1.put("password", "Iamking@000");
+  //   map1.put("productName", "ADIDAS ORIGINAL");
+
+  // return new Object[][] { { map }, { map1 } };}
+
+  //          TRECI nacin
+
 }
