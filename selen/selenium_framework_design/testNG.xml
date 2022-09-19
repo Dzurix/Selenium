@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+
+    <listeners>
+        <listener class-name="end2end.TestComponents.Listeners"/>
+    </listeners>
+    <test name="Vrsta testa">
+         <classes>
+             <class name="end2end.Tests.BaseTestSubmitOrder"/>
+             
+          </classes>
+     </test> <!-- kraj prve vrsta testa -->
+     <test name="Error Validation Test">
+        <classes>
+            <class name="end2end.Tests.ErrorValidation"/>
+         </classes>
+     </test><!-- kraj druge vrsta testa -->
+</suite> <!-- Suite -->

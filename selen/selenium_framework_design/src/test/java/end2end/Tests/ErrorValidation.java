@@ -1,6 +1,9 @@
 package end2end.Tests;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import end2end.TestComponents.BaseTest;
+import end2end.TestComponents.Retry;
 import end2endPOM.CartPage;
 import end2endPOM.CheckoutPage;
 import end2endPOM.ConfirmationPage;
@@ -26,15 +29,15 @@ import org.testng.annotations.Test;
 
 public class ErrorValidation extends BaseTest {
 
-  @Test
+  @Test(retryAnalyzer = Retry.class) //ako test padne, ponovo ga pokreni (koliko puta, pise u Retry.java )
   public void LoginErrorValidiation() throws IOException, InterruptedException {
     String productName = "ZARA COAT 3";
 
     landingPage.loginApplication("anshika@gmail.com", "wololo");
 
     Assert.assertEquals(
-            "Incorrect email or password.",
-            landingPage.getErrorMessage()
+      "Incorrect email or password.",
+      landingPage.getErrorMessage()
     );
   }
 
@@ -43,8 +46,8 @@ public class ErrorValidation extends BaseTest {
     String productName = "ZARA COAT 3";
 
     ProductCatalogue productCatalogue = landingPage.loginApplication(
-            "anshika@gmail.com",
-            "Iamking@000"
+      "anshika@gmail.com",
+      "Iamking@000"
     );
 
     // ProductCatalogue productCatalogue = new ProductCatalogue(driver);  OVO SADA NE TREBA JER SMO KREIRALI OBJEKAT U METODU KOD LandingPage klase

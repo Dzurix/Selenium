@@ -90,21 +90,6 @@ public class BaseTestSubmitOrder extends BaseTest {
     Assert.assertTrue(orderPage.VerifyOrdersDisplay(productName));
   }
 
-  public String getScreenShoot(String testCaseName) throws IOException {
-    TakesScreenshot slikajScreenshot = (TakesScreenshot) driver;
-    File source = slikajScreenshot.getScreenshotAs(OutputType.FILE);
-
-    File file = new File(
-      System.getProperty("user.dir") + "//reports//" + testCaseName + ".png"
-    );
-
-    FileUtils.copyFile(source, file);
-
-    return (
-      System.getProperty("user.dir") + "//reports//" + testCaseName + ".png"
-    );
-  }
-
   //Extent reports
 
   //Data provider
