@@ -13,10 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
@@ -39,8 +41,13 @@ public class BaseTest {
     String browserName = prop.getProperty("browser");
 
     if (browserName.equalsIgnoreCase("chrome")) {
+      ChromeOptions options = new ChromeOptions(); //kreiranje 'options' za HEADLESS mode
+
       WebDriverManager.chromedriver().setup(); //umemsto lokacije u pom.XML importujemo WebDriverManager
+      // options.addArguments("headless"); // HEADLESS
+      // driver = new ChromeDriver(options); // HEADLESS
       driver = new ChromeDriver();
+      driver.manage().window().setSize(new Dimension(1440, 900)); //full screen
     } else if (browserName.equalsIgnoreCase("firefox")) {
       WebDriverManager.firefoxdriver().setup(); //umemsto lokacije u pom.XML importujemo WebDriverManager
       driver = new FirefoxDriver();
@@ -50,6 +57,7 @@ public class BaseTest {
     }
 
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    driver.manage().window().maximize();
     return driver;
   }
 
