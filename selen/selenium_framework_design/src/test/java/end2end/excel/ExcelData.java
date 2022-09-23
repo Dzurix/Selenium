@@ -46,7 +46,23 @@ public class ExcelData {
           k++;
         }
         System.out.println(column);
-        //Sada kada smo identifikovali kolonu , sada cemo je skenirati da bi nasli red od reci "Purchase"
+        //Sada kada smo identifikovali kolonu , sada cemo je skenirati da bi nasli row od reci "Purchase"
+
+        while (rows.hasNext()) {
+          Row r = rows.next();
+
+          if (
+            r.getCell(column).getStringCellValue().equalsIgnoreCase("Purchase")
+          ) {
+            // sada kada smo nasli zeljeni red hvatamo sve podatke iz tog reda
+
+            Iterator<org.apache.poi.ss.usermodel.Cell> cv = r.cellIterator();
+
+            while (cv.hasNext()) {
+              System.out.println(cv.next().getStringCellValue());
+            }
+          }
+        }
       }
     }
   }
