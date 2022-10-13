@@ -1,5 +1,6 @@
 package end2end.mySQL;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.sql.Statement;
 public class JDBC {
 
   public static void main(String[] args) throws SQLException {
-    // format URL baze   "jdbc:mysql://"+host+":"+port+"/databaseName"
+    // // format URL baze   "jdbc:mysql://"+host+":"+port+"/databaseName"
 
     String host = "localhost";
     String port = "3306";

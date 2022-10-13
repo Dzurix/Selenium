@@ -26,7 +26,7 @@ public class MyCommand {
     deviceMetrics.put("deviceScaleFactor", 50);
     deviceMetrics.put("mobile", true);
 
-    //kreiranje custom komande
+    //kreiranje custom komande da menjam dimenzije browsera (npr mobilni)
 
     driver.executeCdpCommand(
       "Emulation.setDeviceMetricsOverride",
