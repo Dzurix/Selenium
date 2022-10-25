@@ -50,6 +50,72 @@ public class vezbe implements interface1 {
 
       vezbe b = new vezbe();
       b.setajNaZeleno();
+
+      //Array
+      // -container which stores multiple values of same data type
+
+      int g[] = new int[5]; // array sa 5 elemenata
+
+      int d[] = { 2, 3, 5, 6, 7 }; // odmah definisemo vrednosti
+
+      // for (int n = 0; i < d.length; n++) {
+      //   System.out.println(d[n]);
+      // }
+      //multidimenzionalni array ima dva ili vise parametara
+
+      int x[][] = new int[2][3]; // 2 reda i 3 kolone
+
+      x[0][0] = 4;
+      x[0][1] = 3;
+      x[0][2] = 2;
+      x[1][0] = 1;
+      x[1][1] = 5;
+      x[1][2] = 6;
+
+      //jednostavnije napisano je ovako
+
+      int z[][] = { { 4, 3, 2 }, { 1, 5, 6 } };
+
+      for (int l = 0; l < 2; l++) { //red
+        for (int m = 0; m < 3; m++) { //kolona
+          System.out.println(z[l][m]);
+        }
+      }
+      //zadatak   istampaj minimalni broj iz matrice
+      //  2  4  5
+      //  3  4  7
+      //  1  2  9
+
+      int abc[][] = { { 2, 4, 5 }, { 3, 0, 7 }, { 1, 2, 9 } };
+
+      int min = abc[0][0];
+      int mincolumn;
+
+      for (int prvi = 0; prvi < 3; prvi++) {
+        for (int drugi = 0; drugi < 3; drugi++) {
+          if (abc[prvi][drugi] < min) {
+            min = abc[prvi][drugi];
+
+            mincolumn = drugi;
+          }
+        }
+      }
+
+      // zadatak - u koloni gde je min, istampaj mi max broj
+
+      //    -1. saznaj koji je min broj
+      //    -2. identifikuj kolonu od min broj
+      //    -3. pronadji max broj u toj koloni
+
+      int max = abc[0][mincolumn];
+      int kk = 0;
+
+      while (kk < 3) {
+        if (abc[kk][mincolumn] > max) {
+          max = abc[k][mincolumn];
+        }
+        kk++;
+      }
     }
   }
 
