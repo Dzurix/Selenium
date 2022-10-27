@@ -100,24 +100,46 @@ public class vezbe implements interface1 {
           }
         }
       }
-
-      // zadatak - u koloni gde je min, istampaj mi max broj
-
-      //    -1. saznaj koji je min broj
-      //    -2. identifikuj kolonu od min broj
-      //    -3. pronadji max broj u toj koloni
-
-      int max = abc[0][mincolumn];
-      int kk = 0;
-
-      while (kk < 3) {
-        if (abc[kk][mincolumn] > max) {
-          max = abc[k][mincolumn];
-        }
-        kk++;
-      }
     }
   }
+
+  // zadatak - u koloni gde je min, istampaj mi max broj
+
+  //    -1. saznaj koji je min broj
+  //    -2. identifikuj kolonu od min broj
+  //    -3. pronadji max broj u toj koloni
+
+  // int abc[][]={‌{2,4,5},{3,2,10},{1,2,0}};
+  // int min=abc[0][0];
+  // int mincoloumn = 0;
+
+  // for(int i=0;i<3;i++)
+  // {
+  // for(int j=0;j<3;j++)
+  // {
+  // if(abc[i][j]<min)//2
+  // {
+  // min=abc[i][j];
+  // mincoloumn=j;
+  // }
+  // }
+  // }
+  // //=1
+  // int max=abc[0][mincoloumn];
+  // int k = 0;
+  // while(k<3)
+  // {
+  // if(abc[k][mincoloumn]>max)
+  // {
+  // max=abc[k][mincoloumn];
+  // }
+  // k++;
+  // }
+
+  // System.out.println(max);
+  // }
+
+  // }
 
   @Override
   public void flashYellow() {
