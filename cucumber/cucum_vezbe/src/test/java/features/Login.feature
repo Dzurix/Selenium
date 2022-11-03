@@ -1,41 +1,45 @@
 Feature: Application Login
 
-    Feature Description
-    @RegTest @SmokeTest
-    Scenario: Home page defalut login
-
+    @WebTest
+    Scenario: Home page default login
         Given User is on NetBanking landing page
-        When User login into application with username "Jin" and password "1234"
+        When User login into application with "jin" and password "1234"
+        Then Home page is populated
+        And Cards displayed are "true"
+
+    @MobileTest
+    Scenario: Home page default login
+        Given User is on NetBanking landing page
+        When User login into application with "john" and password "4321"
         Then Home page is populated
         And Cards displayed are "true"
 
     @SmokeTest
-    Scenario: Home page defalut login
-
+    Scenario: Home page default login
         Given User is on NetBanking landing page
-        When User login into application with username "John" and password "4321"
+        When User login into application with "john" and password "4321"
+        Then Home page is populated
+        And Cards displayed are "false"
+    @MobileTest
+    Scenario: Home page default login
+        Given User is on NetBanking landing page
+        When User sign up with following details
+            | jenny | abcd | john@abcd.com | Australia | 3242353 |
         Then Home page is populated
         And Cards displayed are "false"
 
-    @SmokeTest
-    Scenario: Home page defalut login
 
+
+    @WebTest
+    Scenario Outline: Home page default login
         Given User is on NetBanking landing page
-        When User sign up with folowing details
-            | jenny | abcd | jenny@abcd.com | Australia | 123331 |
-        Then Home page is populated
-        And Cards displayed are "false"
-
-    @RegTest
-    Scenario Outline:  Home page defalut login
-
-        Given User is on NetBanking landing page
-        When User login into application with username <Username> and password <Password>
+        When User login in to application with <Username> and password <password>
         Then Home page is populated
         And Cards displayed are "true"
 
         Examples:
-            | Username | Password   |
-            | User 1   | Password 1 |
-            | User 2   | Password 2 |
-            | User 3   | Password 3 |
+            | Username | password |
+            | user1    | pass1    |
+            | user2    | pass2    |
+            | user3    | pass3    |
+            | user4    | pass4    |
