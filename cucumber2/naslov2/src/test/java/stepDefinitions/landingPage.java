@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageObjects.LandingPage;
 import utils_sveStoTrebaZaOdrzavanje.utils; // ovo je za konstruktor
 
 public class landingPage {
@@ -40,15 +41,12 @@ public class landingPage {
   public void user_searched_with_shortname_something_and_extracted_actual_name_of_product(
     String shortName
   ) throws InterruptedException {
-    testContextSetup.driver
-      .findElement(By.xpath("//input[@type='search']"))
-      .sendKeys(shortName);
+    LandingPage landingP = new LandingPage(testContextSetup.driver); //kreiram objekat od klase LangingPage zbog drivera
+    landingP.searchItem(shortName);
+
     Thread.sleep(2000);
     testContextSetup.landingPageProductName =
-      testContextSetup.driver
-        .findElement(By.cssSelector("h4.product-name"))
-        .getText()
-        .split("-")[0].trim(); //Izvlacim rec "Tomato"
+      landingP.getProductName().split("-")[0].trim(); //Izvlacim rec "Tomato"
     System.out.println(landingPageProductName + " is extracted from Home page");
   }
 }

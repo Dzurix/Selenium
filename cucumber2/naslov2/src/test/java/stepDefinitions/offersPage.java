@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageObjects.LandingPage;
+import pageObjects.OffersPage;
 import utils_sveStoTrebaZaOdrzavanje.utils;
 
 public class offersPage {
@@ -30,14 +32,11 @@ public class offersPage {
   ) throws InterruptedException {
     switchToOffersPage();
 
-    testContextSetup.driver
-      .findElement(By.xpath("//input[@type='search']"))
-      .sendKeys(shortName);
+    OffersPage offersP = new OffersPage(testContextSetup.driver);
+
+    offersP.searchItem(shortName);
     Thread.sleep(2000);
-    offerPageProductName =
-      testContextSetup.driver
-        .findElement(By.cssSelector("tr td:nth-child(1)"))
-        .getText();
+    offerPageProductName = offersP.getProductName();
   }
 
   public void switchToOffersPage() {
@@ -50,7 +49,8 @@ public class offersPage {
           "https://rahulshettyacademy.com/seleniumPractise/#/offers"
         )
     ) {
-      testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
+      LandingPage landingP = new LandingPage(testContextSetup.driver);
+      landingP.selectTopDealsPage();
 
       Set<String> s1 = testContextSetup.driver.getWindowHandles(); // hvatanje Indeksa od otvorenih prozora
       Iterator<String> i1 = s1.iterator(); // kreiram objekat
