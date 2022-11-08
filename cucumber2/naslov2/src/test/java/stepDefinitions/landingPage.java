@@ -41,7 +41,7 @@ public class landingPage {
   public void user_searched_with_shortname_something_and_extracted_actual_name_of_product(
     String shortName
   ) throws InterruptedException {
-    LandingPage landingP = new LandingPage(testContextSetup.driver); //kreiram objekat od klase LangingPage zbog drivera
+    LandingPage landingP = testContextSetup.PageObjectManager.getLandingPage(); //kreiram objekat od klase LangingPage zbog drivera
     landingP.searchItem(shortName);
 
     Thread.sleep(2000);

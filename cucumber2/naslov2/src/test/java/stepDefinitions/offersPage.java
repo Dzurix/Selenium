@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageObjects.LandingPage;
 import pageObjects.OffersPage;
+import pageObjects.pageObjectManager;
 import utils_sveStoTrebaZaOdrzavanje.utils;
 
 public class offersPage {
@@ -21,6 +22,7 @@ public class offersPage {
   public String landingPageProductName; // isto i sa ovim varijablama
   public String offerPageProductName;
   utils testContextSetup;
+  pageObjectManager PageObjectManager;
 
   public offersPage(utils testContextSetup) {
     this.testContextSetup = testContextSetup;
@@ -49,7 +51,9 @@ public class offersPage {
           "https://rahulshettyacademy.com/seleniumPractise/#/offers"
         )
     ) {
-      LandingPage landingP = new LandingPage(testContextSetup.driver);
+      // PageObjectManager = new pageObjectManager(testContextSetup.driver);
+      LandingPage landingP = testContextSetup.PageObjectManager.getLandingPage();
+
       landingP.selectTopDealsPage();
 
       Set<String> s1 = testContextSetup.driver.getWindowHandles(); // hvatanje Indeksa od otvorenih prozora
