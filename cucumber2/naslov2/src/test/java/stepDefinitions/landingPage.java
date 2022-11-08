@@ -26,14 +26,7 @@ public class landingPage {
   } // OVO JE KONSTRUKTOR
 
   @Given("^user is on GreenKart landing page$")
-  public void user_is_on_greenkart_landing_page() {
-    WebDriverManager.chromedriver().setup();
-    testContextSetup.driver = new ChromeDriver();
-
-    testContextSetup.driver.get(
-      "https://rahulshettyacademy.com/seleniumPractise/#/"
-    );
-  }
+  public void user_is_on_greenkart_landing_page() {}
 
   @When(
     "^user searched with Shortname \"([^\"]*)\" and extracted actual name of product$"

@@ -1,5 +1,6 @@
 package utils_sveStoTrebaZaOdrzavanje;
 
+import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import pageObjects.pageObjectManager;
 
@@ -9,8 +10,12 @@ public class utils {
   public String landingPageProductName; // isto i sa ovim varijablama
   public String offerPageProductName;
   public pageObjectManager PageObjectManager;
+  public TestBase testBase;
+  public GenericUtils genericUtils;
 
-  public utils() { //konstruktor
-    PageObjectManager = new pageObjectManager(driver); // ovako je sad objekat spreman za kreiranje
+  public utils() throws IOException { //konstruktor
+    testBase = new TestBase();
+    PageObjectManager = new pageObjectManager(testBase.WebDriverManager()); // ovako je sad objekat spreman za kreiranje
+    genericUtils = new GenericUtils(testBase.WebDriverManager()); // ovo je sad DRIVER (testBase.WebDriverManager()) iz TEST BASE i mozemo kreirati objekat
   }
 }

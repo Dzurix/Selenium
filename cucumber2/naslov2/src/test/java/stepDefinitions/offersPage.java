@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 import org.junit.Assert;
@@ -14,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pageObjects.LandingPage;
 import pageObjects.OffersPage;
 import pageObjects.pageObjectManager;
+import utils_sveStoTrebaZaOdrzavanje.GenericUtils;
 import utils_sveStoTrebaZaOdrzavanje.utils;
 
 public class offersPage {
@@ -31,21 +33,22 @@ public class offersPage {
   @Then("^user searched for \"([^\"]*)\" Shortname in offers page")
   public void user_searched_for_something_shortname_in_offers_page_to_check_if_product_exist_with_same_name(
     String shortName
-  ) throws InterruptedException {
+  ) throws InterruptedException, IOException {
     switchToOffersPage();
 
-    OffersPage offersP = new OffersPage(testContextSetup.driver);
+    OffersPage offersP = testContextSetup.PageObjectManager.getOffersPage();
 
     offersP.searchItem(shortName);
     Thread.sleep(2000);
     offerPageProductName = offersP.getProductName();
   }
 
-  public void switchToOffersPage() {
+  public void switchToOffersPage() throws IOException {
     //checking are we already on offersPage
 
     if (
-      !testContextSetup.driver
+      !testContextSetup.testBase
+        .WebDriverManager()
         .getCurrentUrl()
         .equalsIgnoreCase(
           "https://rahulshettyacademy.com/seleniumPractise/#/offers"
@@ -56,11 +59,7 @@ public class offersPage {
 
       landingP.selectTopDealsPage();
 
-      Set<String> s1 = testContextSetup.driver.getWindowHandles(); // hvatanje Indeksa od otvorenih prozora
-      Iterator<String> i1 = s1.iterator(); // kreiram objekat
-      String parentWindow = i1.next(); // hvatam indeks [0]
-      String childWindow = i1.next();
-      testContextSetup.driver.switchTo().window(childWindow); // sad smo na drugom prozoru i sad je ceo fokus na tom prozoru
+      testContextSetup.genericUtils.SwithcWindowToChild();
     }
   }
 
