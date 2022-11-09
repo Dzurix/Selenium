@@ -98,6 +98,14 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+
+          <!-- Ovo je za paralelno testiranje  -->
+          <configuration>
+            <parallel>methods</parallel>
+            <useUnlimitedThreads>true</useUnlimitedThreads> <!-- ovde definisem koliko testova se pokrece (ako nema mnogo moze ovako da ostane) -->
+          </configuration>
+
+
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>

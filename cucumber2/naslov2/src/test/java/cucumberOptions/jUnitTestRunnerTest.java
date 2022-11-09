@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
   features = "src/test/java/features",
   glue = "stepDefinitions",
+  // tags = "@PlaceOrder", //SAMO OVI TESTOVI SE POKRECU
   monochrome = true,
   plugin = {
     "pretty",
@@ -16,4 +17,4 @@ import org.junit.runner.RunWith;
     "junit:target/cucumber.xml", // ovo koristim za JENKINS
   }
 )
-public class jUnitTestRunner {}
+public class jUnitTestRunnerTest {}

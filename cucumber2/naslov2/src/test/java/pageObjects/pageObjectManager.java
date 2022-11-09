@@ -7,6 +7,7 @@ public class pageObjectManager {
   public LandingPage landingPage; //objekat za landing page
   public OffersPage offersPage; //objekat za offers page
   public WebDriver driver;
+  public CheckoutPage checkoutPage;
 
   public pageObjectManager(WebDriver driver) { //KONSTRUKTOR
     this.driver = driver;
@@ -20,5 +21,10 @@ public class pageObjectManager {
   public OffersPage getOffersPage() {
     offersPage = new OffersPage(driver);
     return offersPage;
+  }
+
+  public CheckoutPage getCheckoutPage() {
+    checkoutPage = new CheckoutPage(driver);
+    return checkoutPage;
   }
 }

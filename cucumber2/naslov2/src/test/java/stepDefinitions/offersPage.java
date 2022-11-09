@@ -30,7 +30,7 @@ public class offersPage {
     this.testContextSetup = testContextSetup;
   } // OVO JE KONSTRUKTOR
 
-  @Then("^user searched for \"([^\"]*)\" Shortname in offers page")
+  @Then("^user searched for (.+) Shortname in offers page")
   public void user_searched_for_something_shortname_in_offers_page_to_check_if_product_exist_with_same_name(
     String shortName
   ) throws InterruptedException, IOException {
@@ -39,7 +39,7 @@ public class offersPage {
     OffersPage offersP = testContextSetup.PageObjectManager.getOffersPage();
 
     offersP.searchItem(shortName);
-    Thread.sleep(2000);
+    // Thread.sleep(2000);
     offerPageProductName = offersP.getProductName();
   }
 

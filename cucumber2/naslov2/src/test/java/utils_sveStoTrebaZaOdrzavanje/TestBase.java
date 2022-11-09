@@ -1,5 +1,6 @@
 package utils_sveStoTrebaZaOdrzavanje;
 
+import io.cucumber.messages.types.Duration;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,7 +38,10 @@ public class TestBase {
         WebDriverManager.edgedriver().setup();
         driver = new EdgeDriver();
       }
-
+      driver
+        .manage()
+        .timeouts()
+        .implicitlyWait(java.time.Duration.ofSeconds(5));
       driver.get(url);
     }
     return driver; //ako je driver vec inicijalizovan, jednostavno vrati taj driver
