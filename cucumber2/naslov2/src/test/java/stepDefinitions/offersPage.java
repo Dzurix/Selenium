@@ -39,7 +39,7 @@ public class offersPage {
     OffersPage offersP = testContextSetup.PageObjectManager.getOffersPage();
 
     offersP.searchItem(shortName);
-    // Thread.sleep(2000);
+    Thread.sleep(2000);
     offerPageProductName = offersP.getProductName();
   }
 

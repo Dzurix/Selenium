@@ -40,7 +40,7 @@ public class landingPage {
   ) throws InterruptedException {
     landingP.searchItem(shortName);
 
-    // Thread.sleep(2000);
+    Thread.sleep(2000);
     testContextSetup.landingPageProductName =
       landingP.getProductName().split("-")[0].trim(); //Izvlacim rec "Tomato"
     System.out.println(landingPageProductName + " is extracted from Home page");

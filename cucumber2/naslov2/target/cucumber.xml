@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="3" time="11.28">
-<testcase classname="Place the order of Products" name="User experience for product search" time="4.729">
-<system-out><![CDATA[Given user is on GreenKart landing page.....................................passed
-When user searched with Shortname Tom and extracted actual name of product..passed
-And added "3" items of the selected product to cart.........................passed
-Then user proceeds to Checkout and validate the Tom items in checkout page..passed
-And verify user has ability to enter promo code and place the order.........passed
-]]></system-out>
-</testcase>
-<testcase classname="Search and place the order of Products" name="User experience for product search" time="3.224">
-<system-out><![CDATA[Given user is on GreenKart landing page.....................................passed
-When user searched with Shortname Tom and extracted actual name of product..passed
-Then user searched for Tom Shortname in offers page.........................passed
-And validate product name in offers page matches with product name on landing Page.passed
-]]></system-out>
-</testcase>
-<testcase classname="Search and place the order of Products" name="User experience for product search 2" time="3.169">
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="14.205">
+<testcase classname="Search and place the order of Products" name="User experience for product search" time="13.883">
 <failure message="expected:&lt;[No data]&gt; but was:&lt;[Beetroot]&gt;" type="org.junit.ComparisonFailure"><![CDATA[Given user is on GreenKart landing page.....................................passed
 When user searched with Shortname Beet and extracted actual name of product.passed
 Then user searched for Beet Shortname in offers page........................passed
