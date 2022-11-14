@@ -1,10 +1,13 @@
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\pageObjects\pageObjectManager.java
+D:\cy\Selenium\cucumber2\naslov2\src\test\java\stepDefinitions\checkoutPage.java
+D:\cy\Selenium\cucumber2\naslov2\src\test\java\stepDefinitions\landingPage.java
+D:\cy\Selenium\cucumber2\naslov2\src\test\java\pageObjects\LandingPage.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\utils_sveStoTrebaZaOdrzavanje\utils.java
+D:\cy\Selenium\cucumber2\naslov2\src\test\java\pageObjects\CheckoutPage.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\utils_sveStoTrebaZaOdrzavanje\TestBase.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\stepDefinitions\Hooks.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\stepDefinitions\offersPage.java
+D:\cy\Selenium\cucumber2\naslov2\src\test\java\cucumberOptions\failedTestRunnerTest.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\utils_sveStoTrebaZaOdrzavanje\GenericUtils.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\cucumberOptions\jUnitTestRunnerTest.java
-D:\cy\Selenium\cucumber2\naslov2\src\test\java\stepDefinitions\landingPage.java
-D:\cy\Selenium\cucumber2\naslov2\src\test\java\pageObjects\LandingPage.java
 D:\cy\Selenium\cucumber2\naslov2\src\test\java\pageObjects\OffersPage.java

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="14.205">
-<testcase classname="Search and place the order of Products" name="User experience for product search" time="13.883">
-<failure message="expected:&lt;[No data]&gt; but was:&lt;[Beetroot]&gt;" type="org.junit.ComparisonFailure"><![CDATA[Given user is on GreenKart landing page.....................................passed
-When user searched with Shortname Beet and extracted actual name of product.passed
-Then user searched for Beet Shortname in offers page........................passed
-And validate product name in offers page matches with product name on landing Page.failed
-
-StackTrace:
-org.junit.ComparisonFailure: expected:<[No data]> but was:<[Beetroot]>
-	at org.junit.Assert.assertEquals(Assert.java:115)
-	at org.junit.Assert.assertEquals(Assert.java:144)
-	at stepDefinitions.offersPage.validate_product_name_in_offers_page_matches_with_product_name_on_landing_page(offersPage.java:70)
-	at ✽.validate product name in offers page matches with product name on landing Page(file:///D:/cy/Selenium/cucumber2/naslov2/src/test/java/features/searchProduct.feature:8)
-]]></failure>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="13.594">
+<testcase classname="Place the order of Products" name="User experience for product search" time="13.565">
+<system-out><![CDATA[Given user is on GreenKart landing page.....................................passed
+When user searched with Shortname Tom and extracted actual name of product..passed
+And added "3" items of the selected product to cart.........................passed
+Then user proceeds to Checkout and validate the Tom items in checkout page..passed
+And verify user has ability to enter promo code and place the order.........passed
+]]></system-out>
 </testcase>
 </testsuite>

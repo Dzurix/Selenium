@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: cucumberOptions.failedTestRunnerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.003 s <<< FAILURE! - in cucumberOptions.failedTestRunnerTest
+initializationError(cucumberOptions.failedTestRunnerTest)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalArgumentException: path must exist: D:\cy\Selenium\cucumber2\naslov2\cySeleniumcucumber2naslov2srctestjavafeaturescheckoutPage.feature
+

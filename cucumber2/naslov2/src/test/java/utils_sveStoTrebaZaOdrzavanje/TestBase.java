@@ -26,12 +26,17 @@ public class TestBase {
     prop.load(fis); //loadujem sve stavke iz .properties fajla
 
     String url = prop.getProperty("QAurl");
+    String browser_properties = prop.getProperty("browser");
+    String browser_maven = System.getProperty("browser"); // POMOCU OVOG MOGU U TERMINALU DA ZAJADEM KOMANDU DA BIRAM KOJI HOCU BROWSER
+
+    // posto prioritet imaju cucumber opcije, onda moram da dam prioritet MAVEN komandi ovako
+    String browser = browser_maven != null ? browser_maven : browser_properties;
 
     if (driver == null) { //da ne bi stalno pozivali i pokretali driver, stavljamo ovaj uslov
-      if (prop.getProperty("browser").equalsIgnoreCase("chrome")) { //ignore case, znaci da nije caseSensitive
+      if (browser.equalsIgnoreCase("chrome")) { //ignore case, znaci da nije caseSensitive
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-      } else if (prop.getProperty("browser").equalsIgnoreCase("firefox")) {
+      } else if (browser.equalsIgnoreCase("firefox")) {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
       } else {
